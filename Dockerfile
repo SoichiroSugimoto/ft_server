@@ -24,6 +24,12 @@ RUN wget https://wordpress.org/latest.tar.gz && \
 	tar -xvzf latest.tar.gz && \
 	rm latest.tar.gz;
 
+WORKDIR /var/www/html/wordpress/
+RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz; \
+	tar -xvzf phpMyAdmin-5.0.2-all-languages.tar.gz; \
+	mv phpMyAdmin-5.0.2-all-languages phpmyadmin; \
+	rm phpMyAdmin-5.0.2-all-languages.tar.gz;
+
 COPY ./srcs/wp-config.php /var/www/html/wordpress
 COPY ./srcs/default /etc/nginx/sites-available/
 
