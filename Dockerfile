@@ -24,7 +24,7 @@ RUN wget https://wordpress.org/latest.tar.gz && \
 	tar -xvzf latest.tar.gz && \
 	rm latest.tar.gz;
 
-WORKDIR /var/www/html/wordpress
+WORKDIR /var/www/html/
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz; \
 	tar -xvzf phpMyAdmin-5.0.2-all-languages.tar.gz; \
 	mv phpMyAdmin-5.0.2-all-languages phpMyAdmin; \
@@ -35,21 +35,27 @@ RUN openssl genrsa -out /etc/ssl/private/server.key 2048 && \
 	openssl x509 -days 3650 -req -signkey /etc/ssl/private/server.key -in /etc/ssl/certs/server.csr -out /etc/ssl/certs/server.crt
 
 COPY ./srcs/wp-config.php /var/www/html/wordpress
-COPY ./srcs/config.inc.php /var/www/html/wordpress/phpMyAdmin
-COPY ./srcs/default /etc/nginx/sites-available/
+COPY ./srcs/config.inc.php /var/www/html/phpMyAdmin
+COPY ./srcs/default.tmpl /etc/nginx/sites-available/
+COPY ./srcs/service_start.sh /
 
 RUN chown -R www-data:www-data "/var/www/html/wordpress" && \
 	find /var/www/html/wordpress -type d -exec chmod 755 {} + && \
 	find /var/www/html/wordpress -type f -exec chmod 644 {} +
 
-RUN chown -R www-data:www-data "/var/www/html/wordpress/phpMyAdmin" && \
-	find /var/www/html/wordpress/phpMyAdmin -type d -exec chmod 755 {} + && \
-	find /var/www/html/wordpress/phpMyAdmin -type f -exec chmod 644 {} +
+RUN chown -R www-data:www-data "/var/www/html/phpMyAdmin" && \
+	find /var/www/html/phpMyAdmin -type d -exec chmod 755 {} + && \
+	find /var/www/html/phpMyAdmin -type f -exec chmod 644 {} +
+
+ENV ENTRYKIT_VERSION 0.4.0
+WORKDIR /
+RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERSION}/entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz && \
+	tar -xvzf entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz && \
+	rm entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz && \
+	mv entrykit /bin/entrykit && \
+	chmod +x /bin/entrykit && \
+	entrykit --symlink
+
+ENTRYPOINT ["render", "/etc/nginx/sites-available/default", "--", "bash", "service_start.sh"]
 
 EXPOSE 80 443
-
-CMD service nginx start && \
-	service php7.3-fpm start && \
-	service php7.3-fpm restart && \
-	service mysql start && \
-	tail -f /dev/null;
