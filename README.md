@@ -21,7 +21,7 @@ Run :　　<br>
 <br>
 In case of Default, 
 AUTOINDEX is set as `on`. 
-In order to turn it on<br>
+In order to turn it `off`<br>
 Run :　　<br>
 `$ docker run -it -e AUTOINDEX='off' -p 80:80 -p 443:443 debian:buster `　　<br>
 <br>
