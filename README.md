@@ -24,3 +24,11 @@ AUTOINDEX is set as `on`.
 In order to turn it on<br>
 Run :　　<br>
 `$ docker run -it -e AUTOINDEX='off' -p 80:80 -p 443:443 debian:buster `　　<br>
+<br>
+<br>
+<br>
+<br>
+
+This project is from [42Tokyo](https://42tokyo.jp/) belongs to [42Network](https://www.42.fr/)
+
+
