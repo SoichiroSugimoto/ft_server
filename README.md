@@ -7,7 +7,7 @@ Run :　　<br>
 <br>
 <br>
 <br>
-In case of Default<br>
+In case of Default, 
 AUTOINDEX is set as `on`<br>
 In order to turn it on<br>
 Run :　　<br>
