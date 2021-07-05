@@ -1,5 +1,5 @@
 # ft_server<br>
-### PRPJECT OBJECTIVES<br>
+## ●　PRPJECT OBJECTIVES<br>
 >This is a System Administration subject. You will discover Docker and you will set up your first web server.<br>
 
 Web sever: Nginx<br>
@@ -10,15 +10,13 @@ Others: Open SSL, AUTOINDEX<br>
 <br>
 <br>
 <br>
-<br>
 
-### USAGE<br>
+## ●　USAGE<br>
 Buid :<br>
 `$ docker build -t debian:buster .`　　<br>
 <br>
 Run :　　<br>
 `$ docker run -it -p 80:80 -p 443:443 debian:buster`　　<br>
-<br>
 <br>
 <br>
 In case of Default, 
