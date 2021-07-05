@@ -14,11 +14,11 @@ Others: Open SSL, AUTOINDEX<br>
 ## ●　USAGE<br>
 Buid :<br>
 `$ docker build -t debian:buster .`　　<br>
-generate an 'image' from Dockerfile on current dir.<br>
+(generate an 'image' from Dockerfile on current dir.)<br>
 <br>
 Run :　　<br>
 `$ docker run -it -p 80:80 -p 443:443 debian:buster`　　<br>
-generate and start a 'container' from an 'image'.
+(generate and start a 'container' from an 'image'.)<br>
 <br>
 <br>
 In case of Default, 
